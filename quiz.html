@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pop Quiz: Top Modni Dizajneri</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+    body {
+      background: linear-gradient(135deg, #f8cdda, #1d2b64);
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .quiz-container {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px 40px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+      text-align: center;
+      user-select: none;
+      position: relative;
+    }
+    h1 {
+      margin-bottom: 10px;
+      font-weight: 700;
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 6px #ff66cc;
+    }
+    .question-number {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+      font-weight: 600;
+      color: #ff99cc;
+    }
+    .question-text {
+      font-size: 1.4rem;
+      margin-bottom: 30px;
+    }
+    .answers {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .answer-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid #ff66cc;
+      border-radius: 12px;
+      padding: 12px 20px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, transform 0.15s;
+      box-shadow: 0 0 10px #ff66cc88;
+    }
+    .answer-btn:hover {
+      background: #ff66cc;
+      color: #1d2b64;
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #ff66cc;
+    }
+    .answer-btn.correct {
+      background: #32cd32;
+      border-color: #228b22;
+      color: #fff;
+      cursor: default;
+      box-shadow: 0 0 20px #228b22;
+    }
+    .answer-btn.wrong {
+      background: #ff4040;
+      border-color: #b22222;
+      color: #fff;
+      cursor: default;
+      box-shadow: 0 0 20px #b22222;
+    }
+    .next-btn {
+      background: #ff66cc;
+      border: none;
+      border-radius: 30px;
+      padding: 15px 40px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #1d2b64;
+      cursor: pointer;
+      box-shadow: 0 0 30px #ff66cc;
+      transition: background 0.3s, color 0.3s;
+      user-select: none;
+    }
+    .next-btn:hover {
+      background: #ff85d0;
+      color: #1a2450;
+    }
+    .score-container {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ffccff;
+      margin-top: 20px;
+      text-shadow: 1px 1px 5px #ff66cc;
+    }
+    .restart-btn {
+      background: #ff66cc;
+      border: none;
+      border-radius: 30px;
+      padding: 15px 40px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #1d2b64;
+      cursor: pointer;
+      box-shadow: 0 0 30px #ff66cc;
+      transition: background 0.3s, color 0.3s;
+      user-select: none;
+      margin-top: 25px;
+    }
+    .restart-btn:hover {
+      background: #ff85d0;
+      color: #1a2450;
+    }
+    .back-btn {
+      background: #ffffff88;
+      color: #1d2b64;
+      border: none;
+      border-radius: 25px;
+      padding: 10px 25px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 0 15px #ffffffcc;
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      user-select: none;
+      transition: background 0.3s, color 0.3s;
+    }
+    .back-btn:hover {
+      background: #ff66cc;
+      color: white;
+      box-shadow: 0 0 25px #ff66cc;
+    }
+    footer {
+      margin-top: 40px;
+      color: #ff99cc;
+      font-weight: 600;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container" role="main" aria-live="polite">
+    <button class="back-btn" onclick="goBack()">⬅️ Nazad na glavni website</button>
+    <h1>🎉 Pop Quiz: Modni Dizajneri 👗</h1>
+    <div class="question-number" id="question-number"></div>
+    <div class="question-text" id="question-text"></div>
+    <div class="answers" id="answers"></div>
+    <button class="next-btn" id="next-btn" disabled>Sljedeće pitanje ➡️</button>
+    <div class="score-container" id="score-container" style="display:none;"></div>
+    <button class="restart-btn" id="restart-btn" style="display:none;">Ponovi kviz 🔄</button>
+  </div>
+
+  <footer>
+    Kreator: Paulina Bošnjaković 💖
+  </footer>
+
+  <script>
+    // Funkcija za vraćanje na glavni website
+    function goBack() {
+      // Ovdje promijeni adresu na koju želiš vratiti korisnika
+      window.location.href = "index.html"; 
+      // Ako koristiš neki drugi URL, zamijeni "index.html" s pravim linkom
+    }
+
+    const quizData = [
+      {
+        question: "Koji dizajner je poznat po uvođenju male crne haljine?",
+        answers: [
+          { text: "Christian Dior", correct: false },
+          { text: "Coco Chanel", correct: true },
+          { text: "Gianni Versace", correct: false },
+          { text: "Yves Saint Laurent", correct: false }
+        ]
+      },
+      {
+        question: "Koji dizajner je kreirao 'New Look' stil nakon Drugog svjetskog rata?",
+        answers: [
+          { text: "Karl Lagerfeld", correct: false },
+          { text: "Valentino Garavani", correct: false },
+          { text: "Christian Dior", correct: true },
+          { text: "Alexander McQueen", correct: false }
+        ]
+      },
+      {
+        question: "Gianni Versace je poznat po:",
+        answers: [
+          { text: "Klasičnim i konzervativnim kolekcijama", correct: false },
+          { text: "Glamuroznom i smjelom stilu", correct: true },
+          { text: "Sportskoj odjeći", correct: false },
+          { text: "Modnim dodacima", correct: false }
+        ]
+      },
+      {
+        question: "Yves Saint Laurent je poznat po kojem modnom komadu?",
+        answers: [
+          { text: "Mala crna haljina", correct: false },
+          { text: "Tuxedo odijelo za žene", correct: true },
+          { text: "Kape", correct: false },
+          { text: "Modnim torbama", correct: false }
+        ]
+      },
+      {
+        question: "Tko je bio kreativni direktor Chanela od 2000-ih?",
+        answers: [
+          { text: "Valentino Garavani", correct: false },
+          { text: "Karl Lagerfeld", correct: true },
+          { text: "Donatella Versace", correct: false },
+          { text: "Miuccia Prada", correct: false }
+        ]
+      },
+      {
+        question: "Alexander McQueen poznat je po:",
+        answers: [
+          { text: "Jednostavnim dizajnima", correct: false },
+          { text: "Dramatičnim i avangardnim revijama", correct: true },
+          { text: "Muškim odijelima", correct: false },
+          { text: "Parfemima", correct: false }
+        ]
+      },
+      {
+        question: "Koja dizajnerica je kreativna direktorica modne kuće Versace?",
+        answers: [
+          { text: "Coco Chanel", correct: false },
+          { text: "Donatella Versace", correct: true },
+          { text: "Miuccia Prada", correct: false },
+          { text: "Jean Paul Gaultier", correct: false }
+        ]
+      },
+      {
+        question: "Koji dizajner je sinonim za crvenu haljinu i glamur?",
+        answers: [
+          { text: "Valentino Garavani", correct: true },
+          { text: "Gianni Versace", correct: false },
+          { text: "Karl Lagerfeld", correct: false },
+          { text: "Yves Saint Laurent", correct: false }
+        ]
+      },
+      {
+        question: "Jean Paul Gaultier je poznat po:",
+        answers: [
+          { text: "Korsetima s konusima i ekscentričnom stilu", correct: true },
+          { text: "Parfemima", correct: false },
+          { text: "Klasičnoj odjeći", correct: false },
+          { text: "Torbama", correct: false }
+        ]
+      },
+      {
+        question: "Koja dizajnerica je poznata po modernim torbama i eklektičnom stilu?",
+        answers: [
+          { text: "Coco Chanel", correct: false },
+          { text: "Miuccia Prada", correct: true },
+          { text: "Donatella Versace", correct: false },
+          { text: "Jean Paul Gaultier", correct: false }
+        ]
+      }
+    ];
+
+    const questionNumberElem = document.getElementById('question-number');
+    const questionTextElem = document.getElementById('question-text');
+    const answersElem = document.getElementById('answers');
+    const nextBtn = document.getElementById('next-btn');
+    const scoreContainer = document.getElementById('score-container');
+    const restartBtn = document.getElementById('restart-btn');
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    function startQuiz() {
+      currentQuestionIndex = 0;
+      score = 0;
+      scoreContainer.style.display = 'none';
+      restartBtn.style.display = 'none';
+      nextBtn.style.display = 'inline-block';
+      nextBtn.disabled = true;
+      showQuestion();
+    }
+
+    function showQuestion() {
+      resetState();
+      const currentQuestion = quizData[currentQuestionIndex];
+      questionNumberElem.textContent = `Pitanje ${currentQuestionIndex + 1} od ${quizData.length}`;
+      questionTextElem.textContent = currentQuestion.question;
+
+      currentQuestion.answers.forEach(answer => {
+        const button = document.createElement('button');
+        button.textContent = answer.text;
+        button.classList.add('answer-btn');
+        button.addEventListener('click', () => selectAnswer(button, answer.correct));
+        answersElem.appendChild(button);
+      });
+    }
+
+    function resetState() {
+      nextBtn.disabled = true;
+      while (answersElem.firstChild) {
+        answersElem.removeChild(answersElem.firstChild);
+      }
+    }
+
+    function selectAnswer(selectedBtn, correct) {
+      const buttons = answersElem.querySelectorAll('button');
+      buttons.forEach(btn => {
+        btn.disabled = true;
+        if (btn === selectedBtn) {
+          if (correct) {
+            btn.classList.add('correct');
+            score++;
+          } else {
+            btn.classList.add('wrong');
+          }
+        } else {
+          if (btn.textContent === quizData[currentQuestionIndex].answers.find(a => a.correct).text) {
+            btn.classList.add('correct');
+          }
+        }
+      });
+      nextBtn.disabled = false;
+    }
+
+    nextBtn.addEventListener('click', () => {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < quizData.length) {
+        showQuestion();
+      } else {
+        showScore();
+      }
+    });
+
+    restartBtn.addEventListener('click', () => {
+      startQuiz();
+    });
+
+    function showScore() {
+      resetState();
+      questionNumberElem.textContent = '';
+      questionTextElem.textContent = '🎉 Kviz završen! 🎉';
+      scoreContainer.style.display = 'block';
+      scoreContainer.textContent = `Osvojili ste ${score} od ${quizData.length} točnih odgovora!`;
+      restartBtn.style.display = 'inline-block';
+      nextBtn.style.display = 'none';
+    }
+
+    startQuiz();
+  </script>
+
+</body>
+</html>
