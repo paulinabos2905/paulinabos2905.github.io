@@ -246,6 +246,138 @@
       </div>
     </div>
   </div>
+<style>
+  .designer-table-container {
+    overflow-x: auto;
+    margin: 50px auto;
+    width: 90%;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .designer-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+  }
+
+  .designer-table thead {
+    background-color: #800080;
+    color: white;
+  }
+
+  .designer-table th, .designer-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+
+  .designer-table tbody tr:hover {
+    background-color: #f2e6ff;
+    transition: background-color 0.3s ease;
+  }
+
+  @media (max-width: 600px) {
+    .designer-table thead {
+      display: none;
+    }
+
+    .designer-table, .designer-table tbody, .designer-table tr, .designer-table td {
+      display: block;
+      width: 100%;
+    }
+
+    .designer-table tr {
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 10px;
+      background-color: #fafafa;
+    }
+
+    .designer-table td {
+      text-align: right;
+      padding-left: 50%;
+      position: relative;
+    }
+
+    .designer-table td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 12px;
+      width: 45%;
+      padding-left: 15px;
+      font-weight: bold;
+      text-align: left;
+    }
+  }
+</style>
+
+<h2 style="text-align:center; margin-top:40px; font-family: 'Playfair Display', serif; color:#4b0082;">Pregled dizajnera</h2>
+
+<div class="designer-table-container">
+  <table class="designer-table">
+    <thead>
+      <tr>
+        <th>Rang</th>
+        <th>Ime dizajnera</th>
+        <th>Poznata djela</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-label="Rang">1</td>
+        <td data-label="Ime dizajnera">Coco Chanel</td>
+        <td data-label="Poznata djela">Mala crna haljina, Chanel No. 5, kostimi od tvida</td>
+      </tr>
+      <tr>
+        <td data-label="Rang">2</td>
+        <td data-label="Ime dizajnera">Christian Dior</td>
+        <td data-label="Poznata djela">New Look, Miss Dior parfem</td>
+      </tr>
+      <tr>
+        <td data-label="Rang">3</td>
+        <td data-label="Ime dizajnera">Gianni Versace</td>
+        <td data-label="Poznata djela">Haljina Jennifer Lopez, Atelier Versace</td>
+      </tr>
+      <tr>
+        <td data-label="Rang">4</td>
+        <td data-label="Ime dizajnera">Yves Saint Laurent</td>
+        <td data-label="Poznata djela">Le Smoking, Opium parfem</td>
+      </tr>
+      <tr>
+        <td data-label="Rang">5</td>
+        <td data-label="Ime dizajnera">Karl Lagerfeld</td>
+        <td data-label="Poznata djela">Chanel revije, Fendi torbe, KL kolekcije</td>
+      </tr>
+      <tr>
+        <td data-label="Rang">6</td>
+        <td data-label="Ime dizajnera">Alexander McQueen</td>
+        <td data-label="Poznata djela">Plato's Atlantis, Skull šal</td>
+      </tr>
+      <tr>
+        <td data-label="Rang">7</td>
+        <td data-label="Ime dizajnera">Donatella Versace</td>
+        <td data-label="Poznata djela">Versace haljine za slavne osobe</td>
+      </tr>
+      <tr>
+        <td data-label="Rang">8</td>
+        <td data-label="Ime dizajnera">Valentino Garavani</td>
+        <td data-label="Poznata djela">Valentino crvena haljina, večernje haljine</td>
+      </tr>
+      <tr>
+        <td data-label="Rang">9</td>
+        <td data-label="Ime dizajnera">Jean Paul Gaultier</td>
+        <td data-label="Poznata djela">Korseti s konusima, Madonna</td>
+      </tr>
+      <tr>
+        <td data-label="Rang">10</td>
+        <td data-label="Ime dizajnera">Miuccia Prada</td>
+        <td data-label="Poznata djela">Prada torbe, eklektične kolekcije</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 
   <a href="#top" class="top-btn">&#11014; Na vrh</a>
 
